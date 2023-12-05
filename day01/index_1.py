@@ -1,4 +1,4 @@
-input = open('input1.txt', 'r')
+input = open('input.txt', 'r')
 lines = []
 matchList = [1,2,3,4,5,6,7,8,9]
 
