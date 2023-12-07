@@ -14,37 +14,44 @@ def get_gamenumber(line):
         return ""
     
 def get_pullsOfCubes(line):
-    roundArr = []
+    gameArr = []
     newStr = ""
 
     gamePos = line.find(":")
     newStr = line[gamePos+2:-1]
 
-    roundArr = newStr.split("; ")
+    gameArr = newStr.split("; ")
 
-    return roundArr
+    return gameArr
 
     
-def check_possiblePulls(gameStr):
+def check_pulls(lines, blueLimit, greenLimit, redLimit):
     setArr = []
     cubeArr = []
-    for set in gameStr:
-        setArr.append(set.split(", "))
-        cubeArr = setArr.split(" ")
 
-        blueCube = 0
-        greenCube = 0
-        redCube = 0
-        for cube in cubeArr:
-            if cube[1] == "blue":
-                blueCube += int(cube[0])
-            elif cube[1] == "green":
-                greenCube += int(cube[0])
-            elif cube[1] == "red":
-                redCube += int(cube[0])
+    for line in lines:
+        currGame = get_gamenumber(line)
+        pullsArr = get_pullsOfCubes(line)
+
+        for set in pullsArr:
+            setArr.append(set.split(", "))
+            print(setArr)
+            cubeArr = cubes.split(" ")
+            #print(currGame)
+            #print(setArr)
+
+            blueCube = 0
+            greenCube = 0
+            redCube = 0
+            for cube in cubeArr:
+                if cube[1] == "blue":
+                    blueCube += int(cube[0])
+                elif cube[1] == "green":
+                    greenCube += int(cube[0])
+                elif cube[1] == "red":
+                    redCube += int(cube[0])
                 
-            
-
+check_pulls(lines, 14, 13, 12)
 
 
 
