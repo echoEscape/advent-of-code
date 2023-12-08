@@ -1,6 +1,10 @@
 input = open('input.txt', 'r')
 lines = []
 
+#Split Lines of Input into its own array
+for l in input:
+    lines.append(l)
+
 def get_gamenumber(line):
     try:
         start = line.index("Game ") + len("Game ")
