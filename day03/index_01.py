@@ -30,19 +30,19 @@ for y in range(len(lines)-1):
     for x in range(len(lines[y])-1):
         
         #Check if symbol
-        if lines[y][x] != "." and lines[y][x] not in numbers and lines[y][x]:
+        if lines[y][x] != "." and lines[y][x] not in numbers:
             alreadyFound = []
             solution = 0
             #Check if a number is around the checked pos while staying in bounds
             #print(lines[y][:x] + "\033[91m" + lines[y][x] + "\033[0m" + lines[y][x+1:])
             #up
-            if y-1 >= 0 and lines[y-1][x] in numbers and lines[y-1][x]:
+            if y-1 >= 0 and lines[y-1][x] in numbers:
                 solution = int(get_fullNumber(lines[y-1], x, numbers))
                 if solution not in alreadyFound:
                     alreadyFound.append(solution)
                     solutionSum += solution
             #left
-            if x-1 >= 0 and lines[y][x-1] in numbers and lines[y][x-1]:
+            if x-1 >= 0 and lines[y][x-1] in numbers:
                 solution = int(get_fullNumber(lines[y], x-1, numbers))
                 if solution not in alreadyFound:
                     alreadyFound.append(solution)
