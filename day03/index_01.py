@@ -31,7 +31,7 @@ for y in range(len(lines)-1):
 
         #Check if symbol
         if lines[y][x] != "." and lines[y][x] not in numbers:
-            #Check if a number is out of bounds around the checked pos
+            #Check if a number is around the checked pos while staying in bounds
             print(lines[y][:x] + "\033[91m" + lines[y][x] + "\033[0m" + lines[y][x+1:])
             #up
             if y-1 >= 0 and lines[y-1][x] in numbers:
@@ -54,7 +54,7 @@ for y in range(len(lines)-1):
                 solutionSum += int(get_fullNumber(lines[y-1], x-1, numbers))
                 print("up-left")
             #up-right
-            elif y-1 >= 0 and x+1 < len(lines[y-1]) and lines[y-1][x+1] in numbers:
+            elif y-1 >= 0 and x+1 < len(lines[y]) and lines[y-1][x+1] in numbers:
                 solutionSum += int(get_fullNumber(lines[y-1], x+1, numbers))
                 print("up-right")
             #down-left
