@@ -28,7 +28,7 @@ def get_fullNumber(line, checked_x_pos, numbers):
 #lines[y][x]
 for y in range(len(lines)-1):
     for x in range(len(lines[y])-1):
-
+        
         #Check if symbol
         if lines[y][x] != "." and lines[y][x] not in numbers:
             #Check if a number is around the checked pos while staying in bounds

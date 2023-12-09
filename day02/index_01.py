@@ -36,7 +36,7 @@ def check_pulls(lines, blueLimit, greenLimit, redLimit):
         for set in pullsArr:
             setArr.append(set.split(", "))
             print(setArr)
-            cubeArr = cubes.split(" ")
+            cubeArr = set.split(" ")
             #print(currGame)
             #print(setArr)
 
@@ -44,6 +44,7 @@ def check_pulls(lines, blueLimit, greenLimit, redLimit):
             greenCube = 0
             redCube = 0
             for cube in cubeArr:
+                print(cube)
                 if cube[1] == "blue":
                     blueCube += int(cube[0])
                 elif cube[1] == "green":
