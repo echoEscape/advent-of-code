@@ -19,6 +19,8 @@ def get_fullNumber(line, checked_x_pos, numbers):
     while end_x < len(line) and line[end_x+1] in numbers:
         end_x += 1
 
+    
+    print(line)
     #Correct offset to include last digit
     end_x = end_x + 1
     return line[start_x:end_x]
@@ -35,7 +37,7 @@ for y in range(len(lines)-1):
                 solutionSum += int(get_fullNumber(lines[y-1], x, numbers))
             #left
             if x-1 >= 0 and lines[y][x-1] in numbers:
-                solutionSum = get_fullNumber(lines[y], x-1, numbers)
+                solutionSum = int(get_fullNumber(lines[y], x-1, numbers))
             #down
             if y+1 < len(lines) and lines[y+1][x] in numbers:
                 solutionSum += int(get_fullNumber(lines[y+1], x, numbers))
