@@ -1,6 +1,6 @@
 input = open('input.txt', 'r')
 lines = []
-numbers = ["1","2","3","4","5","6","7","8","9"]
+numbers = ["0","1","2","3","4","5","6","7","8","9"]
 solutionSum = 0
 
 #Split Lines of Input into its own array
@@ -12,19 +12,15 @@ def get_fullNumber(line, checked_x_pos, numbers):
     end_x = int(checked_x_pos)
 
     #Go to the furthest left/start of the number
-    while start_x > 0 and line[start_x-1] in numbers:
-        print("True 1")
+    while start_x >= 0 and line[start_x-1] in numbers:
         start_x -= 1
 
     #Go to the furthest right/end of the number
     while end_x < len(line) and line[end_x+1] in numbers:
-        print("True 2")
         end_x += 1
 
-    print(start_x)
-    print(end_x)
-    print(line[int(start_x):int(end_x)])
-
+    #Correct offset to include last digit
+    end_x = end_x + 1
     return line[start_x:end_x]
 
 #lines[y][x]
