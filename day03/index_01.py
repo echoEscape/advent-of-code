@@ -19,8 +19,8 @@ def get_fullNumber(line, checked_x_pos, numbers):
     while end_x < len(line) and line[end_x+1] in numbers:
         end_x += 1
 
-    print(line[:start_x] + "\x1b[6;30;42m" + line[start_x:end_x+1] + "\x1b[0m" + line[end_x+1:])
-    print("---")
+    #print(line[:start_x] + "\x1b[6;30;42m" + line[start_x:end_x+1] + "\x1b[0m" + line[end_x+1:])
+    #print("---")
     #Correct offset to include last digit
     end_x = end_x + 1
     return line[start_x:end_x]
@@ -30,40 +30,58 @@ for y in range(len(lines)-1):
     for x in range(len(lines[y])-1):
         
         #Check if symbol
-        if lines[y][x] != "." and lines[y][x] not in numbers:
+        if lines[y][x] != "." and lines[y][x] not in numbers and lines[y][x]:
+            alreadyFound = []
+            solution = 0
             #Check if a number is around the checked pos while staying in bounds
-            print(lines[y][:x] + "\033[91m" + lines[y][x] + "\033[0m" + lines[y][x+1:])
+            #print(lines[y][:x] + "\033[91m" + lines[y][x] + "\033[0m" + lines[y][x+1:])
             #up
-            if y-1 >= 0 and lines[y-1][x] in numbers:
-                solutionSum += int(get_fullNumber(lines[y-1], x, numbers))
-                print("up")
+            if y-1 >= 0 and lines[y-1][x] in numbers and lines[y-1][x]:
+                solution = int(get_fullNumber(lines[y-1], x, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
             #left
-            elif x-1 >= 0 and lines[y][x-1] in numbers:
-                solutionSum = int(get_fullNumber(lines[y], x-1, numbers))
-                print("left")
+            if x-1 >= 0 and lines[y][x-1] in numbers and lines[y][x-1]:
+                solution = int(get_fullNumber(lines[y], x-1, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
             #down
-            elif y+1 < len(lines) and lines[y+1][x] in numbers:
-                solutionSum += int(get_fullNumber(lines[y+1], x, numbers))
-                print("down")
+            if y+1 < len(lines) and lines[y+1][x] in numbers:
+                solution = int(get_fullNumber(lines[y+1], x, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
             #right
-            elif x+1 < len(lines[y]) and lines[y][x+1] in numbers:
-                solutionSum += int(get_fullNumber(lines[y], x+1, numbers))
-                print("right")
+            if x+1 < len(lines[y]) and lines[y][x+1] in numbers:
+                solution = int(get_fullNumber(lines[y], x+1, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
             #up-left
-            elif y-1 >= 0 and x-1 >= 0 and lines[y-1][x-1] in numbers:
-                solutionSum += int(get_fullNumber(lines[y-1], x-1, numbers))
-                print("up-left")
+            if y-1 >= 0 and x-1 >= 0 and lines[y-1][x-1] in numbers:
+                solution = int(get_fullNumber(lines[y-1], x-1, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
             #up-right
-            elif y-1 >= 0 and x+1 < len(lines[y]) and lines[y-1][x+1] in numbers:
-                solutionSum += int(get_fullNumber(lines[y-1], x+1, numbers))
-                print("up-right")
+            if y-1 >= 0 and x+1 < len(lines[y]) and lines[y-1][x+1] in numbers:
+                solution = int(get_fullNumber(lines[y-1], x+1, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
             #down-left
-            elif y+1 < len(lines) and x-1 >= 0 and lines[y+1][x-1] in numbers:
-                solutionSum += int(get_fullNumber(lines[y+1], x-1, numbers))
-                print("down-left")
+            if y+1 < len(lines) and x-1 >= 0 and lines[y+1][x-1] in numbers:
+                solution = int(get_fullNumber(lines[y+1], x-1, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
             #down-right
-            elif y+1 < len(lines) and x+1 < len(lines[y]) and lines[y+1][x+1] in numbers:
-                solutionSum += int(get_fullNumber(lines[y+1], x+1, numbers))
-                print("down-right")
+            if y+1 < len(lines) and x+1 < len(lines[y]) and lines[y+1][x+1] in numbers:
+                solution = int(get_fullNumber(lines[y+1], x+1, numbers))
+                if solution not in alreadyFound:
+                    alreadyFound.append(solution)
+                    solutionSum += solution
 
 print(solutionSum)
