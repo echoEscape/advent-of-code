@@ -1,4 +1,4 @@
-input = open('test_input.txt', 'r')
+input = open('input.txt', 'r')
 lines = []
 cleaned_lines_pt1 = []
 cleaned_lines_pt2 = []
@@ -19,22 +19,21 @@ def remove_characters(line):
     return line
 
 def convert_spelling_to_number(line, replacement_list):
-    for speltNumber in replacement_list:
-        line = line.replace(speltNumber[0], speltNumber[1])
+    for spelledNumber in replacement_list:
+        line = line.replace(spelledNumber[0], spelledNumber[0]+spelledNumber[1]+spelledNumber[0]) #fixes the twone issue so that two can still be detected even though one gets checked first by re-adding the actual string so that it doesnt get removed
     line = remove_characters(line)
-
     return line
 
+
 for line in lines:
-    #cleaned_lines_pt1.append(remove_characters(line))
+    cleaned_lines_pt1.append(remove_characters(line))
     cleaned_lines_pt2.append(convert_spelling_to_number(line, numbername_list))
 
 #Part 1
-'''for number_pt1 in cleaned_lines_pt1:
-    print(number_pt1)
+for number_pt1 in cleaned_lines_pt1:
     results_pt1.append(int(number_pt1 + number_pt1)) if len(number_pt1) == 1 else results_pt1.append(int(number_pt1[0] + number_pt1[-1]))
 for result_pt1 in results_pt1:
-    solution_pt1 += result_pt1'''
+    solution_pt1 += result_pt1
 
 #Part 2
 for number_pt2 in cleaned_lines_pt2:
@@ -42,7 +41,5 @@ for number_pt2 in cleaned_lines_pt2:
 for result_pt2 in results_pt2:
     solution_pt2 += result_pt2
 
-#print(solution_pt1)
-print(cleaned_lines_pt2)
-print(results_pt2)
+print(solution_pt1)
 print(solution_pt2)
