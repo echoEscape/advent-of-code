@@ -54,6 +54,6 @@ plScore = 0
 for i in range(len(gameResults)):
     if gameResults[i] == True:
         score = score + (i+1)
-        plScore = plScore + powerLevels[i]
+    plScore = plScore + powerLevels[i]
 print(score)
 print(plScore)
