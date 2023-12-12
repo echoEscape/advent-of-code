@@ -1,4 +1,4 @@
-input = open('test_input.txt', 'r')
+input = open('input.txt', 'r')
 lines = []
 for l in input:
     lines.append(l.replace("\n", ""))
@@ -59,3 +59,11 @@ for seed in seeds:
         #print("---")
 
 print(seedSteps)
+
+#Part 1 - Print lowest location number
+lowestLocation = 9999999999999999999999
+for key in seedSteps:
+    locationNumber = seedSteps[key][len(seedSteps[key])-1]
+    if locationNumber < lowestLocation:
+        lowestLocation = locationNumber
+print(lowestLocation)
