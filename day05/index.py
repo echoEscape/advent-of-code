@@ -1,4 +1,4 @@
-input = open('input.txt', 'r')
+input = open('fynn_input.txt', 'r')
 lines = []
 for l in input:
     lines.append(l.replace("\n", ""))
@@ -31,11 +31,11 @@ for seed in seeds:
     tempSeed = int(seed)
     for key in directions:
         alreadyFound = False
+        nextStep = 0
         for rule in directions[key]:
             offset = 0
             #rule[0] = destination, rule[1] = source, rule[2] = range
             dest_min = int(rule[0])
-            dest_max = int(rule[0]) + (int(rule[2])-1) #-1 because the start value counts too. Range of 2 means (start:25), 25 and 26 then and not 27 which would happen if I'd do a +2(range)
             src_min = int(rule[1])
             src_max = int(rule[1]) + (int(rule[2])-1)
 
@@ -45,25 +45,26 @@ for seed in seeds:
             print(f"Last match: {tempSeed}")'''
 
             if alreadyFound == False and tempSeed >= src_min and tempSeed <= src_max:
-                alreadyFound = True #Set true if sourcenumber can be found within the range
-                offset = tempSeed - src_min
-                nextStep = dest_min + offset
-        if alreadyFound == False:   #If no translation can be found, the destination is = seedNo
-            nextStep = int(tempSeed)
+                alreadyFound = True             #Set true if sourcenumber can be found within the range
+                offset = tempSeed - src_min     #Essentially get the position of the value in the rangelist. e.g. 3rd number in the range
+                nextStep = dest_min + offset    #From the example one line above: get the third value in the range for the destination
+        if alreadyFound == False:       #If no translation can be found, destination = seedNo
+            nextStep = int(tempSeed)    #Last Searched value/source stays the same for the next key if value cant be found in range
 
-        currSteps = seedSteps[str(seed)]
-        currSteps.append(nextStep)
-        seedSteps[str(seed)] = currSteps
+        currSteps = seedSteps[str(seed)]    #Grab List of steps from seed-key
+        currSteps.append(nextStep)          #Add next step to grabbed list
+        seedSteps[str(seed)] = currSteps    #Add new list back to the key with added step
 
-        tempSeed = nextStep
+        tempSeed = nextStep #TempSeed: The SourceNo for the next key
         #print("---")
 
 print(seedSteps)
 
 #Part 1 - Print lowest location number
-lowestLocation = 9999999999999999999999
+lowestLocation = 999999999999999999999999999999999999999
 for key in seedSteps:
-    locationNumber = seedSteps[key][len(seedSteps[key])-1]
+    locationNumber = int(seedSteps[key][len(seedSteps[key])-1])
     if locationNumber < lowestLocation:
         lowestLocation = locationNumber
+
 print(lowestLocation)
