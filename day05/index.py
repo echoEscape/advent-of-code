@@ -1,4 +1,4 @@
-input = open('fynn_input.txt', 'r')
+input = open('input.txt', 'r')
 lines = []
 for l in input:
     lines.append(l.replace("\n", ""))
@@ -17,12 +17,12 @@ ranges = []
 for line in lines:
     if line[0].isalpha(): #If first symbol is a letter it's the sorting name and not the number directions/values
         key = line
-        directions[key] = ranges
         ranges = [] #Reset ranges for new direction
     else:
         ranges.append(line.split(" "))
+        directions[key] = ranges
 
-#---
+#--- Create list of seeds to start from
 seedSteps = {}
 for seedNr in seeds:
     seedSteps[seedNr] = []
@@ -56,9 +56,6 @@ for seed in seeds:
         seedSteps[str(seed)] = currSteps    #Add new list back to the key with added step
 
         tempSeed = nextStep #TempSeed: The SourceNo for the next key
-        #print("---")
-
-print(seedSteps)
 
 #Part 1 - Print lowest location number
 lowestLocation = 999999999999999999999999999999999999999
