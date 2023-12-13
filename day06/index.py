@@ -8,6 +8,7 @@ lines[1] = lines[1].split(":")
 timeList = lines[0][1].strip().split("     ")
 distanceList = lines[1][1].strip().split("   ")
 
+#Part 1
 amountRecordbreaks = {}
 for gameNo in range(len(timeList)):
     possibleRecordbreaks = 0
@@ -25,3 +26,15 @@ result_pt1 = 1
 for key in keys:
     result_pt1 *= amountRecordbreaks[key]
 print(result_pt1)
+
+#Part 2 - Takes a bit to compute
+time = lines[0][1].replace(" ", "")
+distance = lines[1][1].replace(" ", "")
+possibleRecordbreaks_pt2 = 0
+for timeHeld in range(int(time)):
+        traveltime = int(time) - timeHeld
+        traveldistance = timeHeld * traveltime
+        if traveldistance > int(distance):
+            possibleRecordbreaks_pt2 += 1
+
+print(possibleRecordbreaks_pt2)
