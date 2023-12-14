@@ -1,43 +1,10 @@
-# All five cards have the same label: 
-# AAAAA
-def check_five_of_kind():
-    pass
+from collections import Counter
 
-# Four cards have the same label and one card has a different label: 
-# AA8AA
-def check_four_of_kind():
-    pass
-# Three cards have the same label, and the remaining two cards share a different label: 
-# 23332
-
-def check_full_house():
-    pass
-
-# Three cards have the same label, and the remaining two cards are each different from any other card in the hand: 
-# TTT98
-def check_three_of_kind():
-    pass
-
-# Two cards share one label, two other cards share a second label, and the remaining card has a third label: 
-# 23432
-def check_two_pair():
-    pass
-
-# Two cards share one label, and the other three cards have a different label from the pair and each other: 
-# A23A4
-def check_one_pair():
-    pass
-
-# All cards' labels are distinct: 
-# 23456
-def check_high_card():
-    pass
-
-# Second rule takes effect when decks have the same type
+# Second rule takes effect for decks with the same pull-type
 # Sort by strength of first card pulled, then second card, then third,...
 def sort_deck_strength_of_type():
-    ''' CARD STRENGTHS (strongest to weakest)
-        A, K, Q, J, T, 9, 8, 7, 6, 5, 4, 3, 2 ''' 
+    ''' CARD STRENGTHS (Weakest to Strongest)
+        2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A ''' 
     pass
 
 # Multiply Rank (position in list+1) with bid amount of puzzle input
@@ -46,14 +13,70 @@ def calculate_bid_amount():
     pass
 
 # ---------
-
+# Creating the basis of the list to be worked on
 input = open('test_input.txt', 'r')
 lines = []
 for l in input:
     lines.append(l.replace("\n", ""))
 
-print(lines)
+initInput = []
+for line in lines:
+    initInput.append(line.split(" "))
+    
+for cardID in range(len(initInput)):
+    letterCount = dict(Counter(initInput[cardID][0]))
+    initInput[cardID].append(letterCount)
+# -----
 
+# Detect settype and add to list
+# Weakest to Strongest
+error_list = []
+highCard_list = []      # ABCDE
+onePair_list = []       # AABCD
+twoPair_list = []       # AABBC
+threeOfKinds_list = []  # AAABC
+fullHouse_list = []     # AAABB
+fourOfKinds_list = []   # AAAAB
+fiveOfKinds_list = []   # AAAAA
+for cardID in range(len(initInput)):
+    #Keys are already sorted with the first index containing the most letter matches going to the least
+    letterKeys = list(initInput[cardID][2].keys())
+    
+    firstOccurance = initInput[cardID][2][letterKeys[0]]
+    secondOccurance = initInput[cardID][2][letterKeys[1]]
+    keyLength = len(initInput[cardID][2])
+    
+    if keyLength == 5:                                                    # High card -> All 5 different
+        highCard_list.append(initInput[cardID])
+    elif firstOccurance == 2 and keyLength == 4:                           # One Pair -> 4 total, index 0: Two occurances
+        onePair_list.append(initInput[cardID])
+    elif firstOccurance == 2 and secondOccurance == 2 and keyLength == 3:    # Two Pair -> 3 total, index 0 and 1: Two occurances
+        twoPair_list.append(initInput[cardID])
+    elif firstOccurance == 3 and keyLength == 3:                           # Three of kinds -> 3 total, index 0: Three occurances
+        threeOfKinds_list.append(initInput[cardID])
+    elif firstOccurance == 3 and secondOccurance == 2 and keyLength == 2:    # Full House -> 2 total, index 0: 3 occurances, index 1: 2 occurances
+        fullHouse_list.append(initInput[cardID])
+    elif firstOccurance == 4 and keyLength == 2:                           # Four of kinds -> 2 total, index 0: 4 occurances
+        fourOfKinds_list.append(initInput[cardID])
+    elif firstOccurance == 5:                                                    # Five of kinds -> 1 total, index 0: 5 occurances
+        fiveOfKinds_list.append(initInput[cardID])
+    else:                                                                       # Error
+        error_list.append(initInput[cardID])
+
+print(highCard_list)
+print("-")
+print(onePair_list)
+print("-")
+print(twoPair_list)
+print("-")
+print(threeOfKinds_list)
+print("-")
+print(fullHouse_list)
+print("-")
+print(fourOfKinds_list)
+print("-")
+print(fiveOfKinds_list)
+print("---")
 
 '''
 Todo:
