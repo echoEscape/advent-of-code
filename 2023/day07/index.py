@@ -3,10 +3,12 @@ from collections import Counter
 
 # Second rule takes effect for decks with the same pull-type
 # Sort by strength of first card pulled, then second card, then third,...
-def sort_deck_strength_of_type():
+def sort_deck_strength_of_type(card_list):
     ''' CARD STRENGTHS (Weakest to Strongest)
         2, 3, 4, 5, 6, 7, 8, 9, T, J, Q, K, A ''' 
-    pass
+    new_card_list = []
+    print(card_list)
+    return new_card_list
 
 # Multiply Rank (position in list+1) with bid amount of puzzle input
 # Weakest Rank = 1, strongest rank = len(puzzleinput)
@@ -31,7 +33,7 @@ for cardID in range(len(initInput)):
 
 # Detect settype and add to list
 # Weakest to Strongest
-error_list = []
+error_list = []         # Debug
 highCard_list = []      # ABCDE
 onePair_list = []       # AABCD
 twoPair_list = []       # AABBC
@@ -67,11 +69,12 @@ for cardID in range(len(initInput)):
     else:                                                                       # Error
         error_list.append(initInput[cardID])
 
-'''
-Todo:
-Overarching goal: Sort the inputlist by rank and Cardcombinations/Pull-type
-1. Build something to detect the kinds/pairs/full house/high card and sort them to the front (so that the cards without a cardcompination are already sorted and stay in the back)
-2. Rank the hands by sorting them from weakest (1) to highest (len(lines)) based on pull-type
-3. Go through new sorted input list and multiply by bid and rank
-4. results
-'''
+
+# --- SORT EACH CARDTYPE BY VALUE
+#highCard_list = sort_deck_strength_of_type(highCard_list)
+#onePair_list = sort_deck_strength_of_type(onePair_list)
+twoPair_list = sort_deck_strength_of_type(twoPair_list)
+'''threeOfKinds_list = sort_deck_strength_of_type(threeOfKinds_list)
+fullHouse_list = sort_deck_strength_of_type(fullHouse_list)
+fourOfKinds_list = sort_deck_strength_of_type(fourOfKinds_list)
+fiveOfKinds_list = sort_deck_strength_of_type(fiveOfKinds_list)'''
