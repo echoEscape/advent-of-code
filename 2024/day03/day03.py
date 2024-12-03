@@ -34,7 +34,7 @@ def clean_mul(lines):
 def calc_one(cleanLines):
   solution = 0
   for command in cleanLines:
-    solution = solution + (int(command[0]) * int(command[1]))
+    solution += int(command[0]) * int(command[1])
   return solution
 
 def calc_two(cleanLines):
@@ -43,7 +43,7 @@ def calc_two(cleanLines):
 
   for line in cleanLines:
     if calc and len(line) == 2:
-      solution = solution + (int(line[0]) * int(line[1]))
+      solution += int(line[0]) * int(line[1])
     else:
       if line == "do()":
         calc = True
