@@ -1,5 +1,3 @@
-from itertools import permutations
-
 input = open('input_01.txt', 'r')
 lines = []
 for l in input:
@@ -34,20 +32,22 @@ def checkValidity(pages, rulesList):                                            
     return False, pages
    
 
-# Sadly doesn't work as it doesn't seem to generate all possible iterations of the page-orders -> endless loop
-# Addendum: The idea in general was incorrect. I tried to use bubble sort even though I wanted to generate all permutations.
-def bubbleSort(pages, rulesList):                                               # e.g. ['97', '13', '75', '29', '47']
-  sortedList = False
+def sortOrderOfList(pages, rulesList):
+  newOrder = []
+  numDict = {}
+  for page in pages:
+    numDict[page] = 0
 
-  while not sortedList:
-    sortedList = True
-    for i in range(len(pages)-1):
-      if checkValidity(pages, rulesList)[0] == False:                           
-        sortedList = False
-        pages[i], pages[i+1] = pages[i+1], pages[i] 
-        
-      else:
-        return pages
+  for ID in numDict:
+    for rule in rulesList:
+      if rule[0] == ID and rule[1] in numDict.keys():
+        numDict[ID] += 1
+
+  # Sort desc (first page needs to appear the most, next one less than the first, etc.)
+  numDict = dict(sorted(numDict.items(), key=lambda item: item[1], reverse=True))
+  for ID in numDict:
+    newOrder.append(ID)
+  return newOrder
 
 
 # Task 1
@@ -61,20 +61,12 @@ for pages in pagesList:
   elif result[0] == False:
     incorrectRules.append(result[1])
 
+
 # Task 2
 newSortedList = []
-allVersions = []
-for pages in incorrectRules:
-  #newSortedList.append(bubbleSort(pages, rulesList))                           #Incorrectly used bubble sort even though I wanted all permutations
-  
-  # Foolishly thought that running all permutations wouldnt take that long. I was wrong.
-  # The entire approach is flawed and needs to be thought through again.
-  '''allVersions = list(permutations(pages))
+for rules in incorrectRules:
+  newSortedList.append(sortOrderOfList(rules, rulesList))
 
-  for version in allVersions:
-    if checkValidity(version, rulesList)[0] == True:
-      newSortedList.append(version)
-  allVersions = []'''
 
 # Solution calculation
 solutionOne = 0
