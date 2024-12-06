@@ -1,4 +1,6 @@
-input = open('test_01.txt', 'r')
+from itertools import combinations
+
+input = open('input_01.txt', 'r')
 lines = []
 for l in input:
   lines.append(l.replace("\n", ""))
@@ -14,11 +16,8 @@ pagesList = []
 for page in pages:
     pagesList.append(page.split(","))
 
-# Task 1
-# Step 1. Filter
-correctRules = []
-incorrectRules = []
-for pages in pagesList:                                                         # e.g. ['97', '13', '75', '29', '47']
+
+def checkValidity(pages, rulesList):                                            # e.g. ['97', '13', '75', '29', '47'] and ['47', '29']
   occurrences = []
   valid = True
   for page in pages:                                                            # e.g. '97'
@@ -27,18 +26,58 @@ for pages in pagesList:                                                         
           valid = False
 
     if valid:
-       occurrences.append(page)
+      occurrences.append(page)
 
   if set(pages) == set(occurrences):
-      correctRules.append(pages)
+    return True, pages
   else:
-     incorrectRules.append(pages)
+    return False, pages
    
-solutionOne = 0
-for rules in correctRules:
-   middleIndex = len(rules) // 2
-   solutionOne += int(rules[middleIndex])
 
-print(incorrectRules)
+# Sadly doesn't work as it doesn't seem to generate all possible iterations of the page-orders -> endless loop
+def bubbleSort(pages, rulesList):                                               # e.g. ['97', '13', '75', '29', '47']
+  sortedList = False
+
+  while not sortedList:
+    sortedList = True
+    for i in range(len(pages)-1):
+      if checkValidity(pages, rulesList)[0] == False:                           
+        sortedList = False
+        pages[i], pages[i+1] = pages[i+1], pages[i] 
+        
+      else:
+        return pages
+
+
+# Task 1
+correctRules = []
+incorrectRules = []
+for pages in pagesList:
+  result = checkValidity(pages, rulesList)
+
+  if result[0] == True:
+    correctRules.append(result[1])
+  elif result[0] == False:
+    incorrectRules.append(result[1])
+
+# Task 2
+newSortedList = []
+for pages in incorrectRules:
+  newSortedList.append(bubbleSort(pages, rulesList))
+
+
+# Solution calculation
+solutionOne = 0
+for pages in correctRules:
+  middleIndex = len(pages) // 2
+  solutionOne += int(pages[middleIndex])
+print(solutionOne)
+
+solutionTwo = 0
+for pages in newSortedList:
+  middleIndex = len(pages) // 2
+  solutionTwo += int(pages[middleIndex])
+print(solutionTwo)
+
         
         
