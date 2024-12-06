@@ -1,4 +1,4 @@
-from itertools import combinations
+from itertools import permutations
 
 input = open('input_01.txt', 'r')
 lines = []
@@ -35,6 +35,7 @@ def checkValidity(pages, rulesList):                                            
    
 
 # Sadly doesn't work as it doesn't seem to generate all possible iterations of the page-orders -> endless loop
+# Addendum: The idea in general was incorrect. I tried to use bubble sort even though I wanted to generate all permutations.
 def bubbleSort(pages, rulesList):                                               # e.g. ['97', '13', '75', '29', '47']
   sortedList = False
 
@@ -62,9 +63,18 @@ for pages in pagesList:
 
 # Task 2
 newSortedList = []
+allVersions = []
 for pages in incorrectRules:
-  newSortedList.append(bubbleSort(pages, rulesList))
+  #newSortedList.append(bubbleSort(pages, rulesList))                           #Incorrectly used bubble sort even though I wanted all permutations
+  
+  # Foolishly thought that running all permutations wouldnt take that long. I was wrong.
+  # The entire approach is flawed and needs to be thought through again.
+  '''allVersions = list(permutations(pages))
 
+  for version in allVersions:
+    if checkValidity(version, rulesList)[0] == True:
+      newSortedList.append(version)
+  allVersions = []'''
 
 # Solution calculation
 solutionOne = 0
